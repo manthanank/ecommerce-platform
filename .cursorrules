@@ -1,0 +1,8 @@
+# E-commerce Platform Architecture & Cursor Rules
+
+## Tech Stack & Principles
+- Next.js 15 App Router, TypeScript (Strict Mode), Tailwind CSS, Lucide Icons, Framer Motion, Recharts.
+- Prisma ORM with PostgreSQL relational models for Products, Categories, Orders, OrderItems, and Reviews.
+- Simulated Stripe Checkout flow with cryptographic order tokens and webhook fulfillment logic.
+- Full responsive design supporting Mobile (<640px), Tablet (640px-1024px), and Desktop (>1024px).
+- Web Analytics integrated via @vercel/analytics and @vercel/speed-insights.
