@@ -55,3 +55,4 @@ Apex Store is a full-featured e-commerce storefront built with Next.js 15, TypeS
    ```
 
 5. Open [http://localhost:3000](http://localhost:3000) to view the storefront.
+
