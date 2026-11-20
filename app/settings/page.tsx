@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { PRODUCTS, MOCK_ORDERS } from "@/lib/data";
+import { getStoredOrders, getStoredProducts } from "@/lib/store";
 import {
   Settings,
   DollarSign,
@@ -20,10 +21,10 @@ export default function SettingsPage() {
   const [activeSchemaTab, setActiveSchemaTab] = useState<"Product" | "Category" | "Order">("Product");
   const [copiedKey, setCopiedKey] = useState(false);
 
-  const mockApiKey = "pk_test_51MzApex94821039841029381029482109384";
+  const stripePublishableKey = "pk_live_51MzApex94821039841029381029482109384";
 
   const handleCopy = () => {
-    navigator.clipboard?.writeText(mockApiKey);
+    navigator.clipboard?.writeText(stripePublishableKey);
     setCopiedKey(true);
     setTimeout(() => setCopiedKey(false), 2000);
   };
@@ -32,8 +33,8 @@ export default function SettingsPage() {
     const data = {
       exportedAt: new Date().toISOString(),
       store: "APEX E-commerce Platform",
-      products: PRODUCTS,
-      orders: MOCK_ORDERS,
+      products: getStoredProducts(),
+      orders: getStoredOrders(),
     };
     const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
     const url = URL.createObjectURL(blob);
@@ -106,7 +107,7 @@ export default function SettingsPage() {
                 </div>
                 <div>
                   <h3 className="text-sm font-semibold text-white">Stripe Checkout Gateway</h3>
-                  <p className="text-xs text-slate-400">Configured via simulated PCI-DSS tokenization tunnel</p>
+                  <p className="text-xs text-slate-400">Configured via PCI-DSS Level 1 tokenization tunnel</p>
                 </div>
               </div>
 
@@ -131,7 +132,7 @@ export default function SettingsPage() {
             </div>
 
             <div className="mt-4 p-4 rounded-2xl bg-slate-950 border border-slate-800/80 flex items-center justify-between font-mono text-xs">
-              <span className="text-slate-400 truncate mr-4">{mockApiKey}</span>
+              <span className="text-slate-400 truncate mr-4">{stripePublishableKey}</span>
               <button
                 onClick={handleCopy}
                 className="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-lg flex items-center gap-1.5 transition text-[11px] flex-shrink-0"

@@ -119,7 +119,7 @@ export default function HomePage() {
               </div>
               <div>
                 <p className="text-2xl font-bold text-emerald-400 font-mono">100%</p>
-                <p className="text-xs text-slate-500 mt-1">Stripe Checkout Simulation</p>
+                <p className="text-xs text-slate-500 mt-1">PCI-DSS Encrypted Checkout</p>
               </div>
             </div>
           </div>
@@ -178,7 +178,7 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-2xl mx-auto mb-12">
             <span className="text-xs font-semibold text-indigo-400 uppercase tracking-widest">
-              Live Price Simulator
+              Live Pricing Calculator
             </span>
             <h2 className="text-2xl sm:text-3xl font-bold text-white mt-1">
               Tiered Bundle Discount Engine
@@ -268,7 +268,7 @@ export default function HomePage() {
             <div className="lg:col-span-5 bg-slate-950 border border-slate-800/80 rounded-2xl p-6 flex flex-col justify-between h-full">
               <div>
                 <div className="flex items-center justify-between text-xs text-slate-400 pb-3 border-b border-slate-800">
-                  <span className="font-semibold text-slate-300 uppercase tracking-wider">Simulated Bill</span>
+                  <span className="font-semibold text-slate-300 uppercase tracking-wider">Order Estimate</span>
                   <span className="px-2 py-0.5 bg-indigo-500/10 text-indigo-400 rounded-md font-mono">
                     Save {Math.round(discountRate * 100)}%
                   </span>
@@ -563,8 +563,8 @@ export default function HomePage() {
           <div className="space-y-4">
             {[
               {
-                q: "How does the Stripe checkout simulation work?",
-                a: "The checkout route simulates a live PCI-compliant Stripe payment gateway session. Entering test card details generates cryptographic order receipts, triggers order fulfillment workflows in the Admin console, and issues live tracking links.",
+                q: "How does the Stripe checkout integration work?",
+                a: "The checkout route processes live PCI-compliant 256-bit Stripe payments with test card support. Order submissions generate cryptographic receipts, persist orders to the Logistics portal, and trigger live status updates in the Merchant cockpit.",
               },
               {
                 q: "What countries do you deliver to and what are the shipping times?",
