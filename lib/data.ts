@@ -521,3 +521,4 @@ export const CATEGORY_DISTRIBUTION = [
   { name: "Everyday Carry", value: 20, fill: "#8b5cf6" },
   { name: "Minimalist Wear", value: 14, fill: "#f59e0b" },
 ];
+

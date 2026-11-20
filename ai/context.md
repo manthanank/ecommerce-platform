@@ -19,3 +19,4 @@ A modern, high-conversion full-stack E-commerce Engine built with Next.js 15, Po
 - Category: id, name, slug, description, productCount.
 - Order: id, orderNumber, customerName, customerEmail, totalAmount, discountAmount, shippingFee, status, paymentStatus, createdAt.
 - OrderItem: id, orderId, productId, quantity, unitPrice.
+

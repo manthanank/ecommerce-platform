@@ -73,3 +73,4 @@ model Review {
   comment   String
   createdAt DateTime @default(now())
 }
+

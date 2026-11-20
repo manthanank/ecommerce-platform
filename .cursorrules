@@ -6,3 +6,4 @@
 - Simulated Stripe Checkout flow with cryptographic order tokens and webhook fulfillment logic.
 - Full responsive design supporting Mobile (<640px), Tablet (640px-1024px), and Desktop (>1024px).
 - Web Analytics integrated via @vercel/analytics and @vercel/speed-insights.
+

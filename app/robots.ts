@@ -10,3 +10,4 @@ export default function robots(): MetadataRoute.Robots {
     sitemap: "https://ecommerce-platform-tau-ten.vercel.app/sitemap.xml",
   };
 }
+
