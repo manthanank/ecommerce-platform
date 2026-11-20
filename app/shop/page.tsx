@@ -26,7 +26,18 @@ export default function ShopPage() {
   const [toastMessage, setToastMessage] = useState<string | null>(null);
 
   useEffect(() => {
-    setProductsList(getStoredProducts());
+    fetch("/api/products")
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.products && Array.isArray(data.products)) {
+          setProductsList(data.products);
+        } else {
+          setProductsList(getStoredProducts());
+        }
+      })
+      .catch(() => {
+        setProductsList(getStoredProducts());
+      });
   }, []);
 
   const filteredProducts = useMemo(() => {

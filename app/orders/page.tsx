@@ -23,11 +23,27 @@ export default function OrdersPage() {
   const [showInvoiceModal, setShowInvoiceModal] = useState(false);
 
   useEffect(() => {
-    const loaded = getStoredOrders();
-    if (loaded && loaded.length > 0) {
-      setOrders(loaded);
-      setSelectedOrder(loaded[0]);
-    }
+    fetch("/api/orders")
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.orders && Array.isArray(data.orders)) {
+          setOrders(data.orders);
+          setSelectedOrder(data.orders[0]);
+        } else {
+          const loaded = getStoredOrders();
+          if (loaded && loaded.length > 0) {
+            setOrders(loaded);
+            setSelectedOrder(loaded[0]);
+          }
+        }
+      })
+      .catch(() => {
+        const loaded = getStoredOrders();
+        if (loaded && loaded.length > 0) {
+          setOrders(loaded);
+          setSelectedOrder(loaded[0]);
+        }
+      });
   }, []);
 
   const filteredOrders = orders.filter((o) => {
