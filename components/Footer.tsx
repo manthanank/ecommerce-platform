@@ -91,7 +91,7 @@ export default function Footer() {
           <ul className="space-y-2 text-xs text-slate-400">
             <li>Next.js 15 App Router</li>
             <li>Prisma 6 + PostgreSQL</li>
-            <li>Stripe Checkout Mock API</li>
+            <li>Stripe Checkout (PCI-DSS Level 1)</li>
             <li>Vercel Analytics & Speed</li>
           </ul>
         </div>

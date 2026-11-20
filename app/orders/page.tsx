@@ -1,8 +1,9 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { MOCK_ORDERS, Order } from "@/lib/data";
+import { getStoredOrders } from "@/lib/store";
 import {
   Package,
   Truck,
@@ -20,6 +21,14 @@ export default function OrdersPage() {
   const [selectedOrder, setSelectedOrder] = useState<Order>(MOCK_ORDERS[0]);
   const [filterQuery, setFilterQuery] = useState("");
   const [showInvoiceModal, setShowInvoiceModal] = useState(false);
+
+  useEffect(() => {
+    const loaded = getStoredOrders();
+    if (loaded && loaded.length > 0) {
+      setOrders(loaded);
+      setSelectedOrder(loaded[0]);
+    }
+  }, []);
 
   const filteredOrders = orders.filter((o) => {
     if (!filterQuery.trim()) return true;

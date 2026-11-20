@@ -1,8 +1,9 @@
 "use client";
 
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import Link from "next/link";
 import { PRODUCTS, CATEGORIES, Product } from "@/lib/data";
+import { getStoredProducts } from "@/lib/store";
 import { useCart } from "@/lib/cart-context";
 import {
   Search,
@@ -16,6 +17,7 @@ import {
 
 export default function ShopPage() {
   const { addToCart } = useCart();
+  const [productsList, setProductsList] = useState<Product[]>(PRODUCTS);
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [maxPrice, setMaxPrice] = useState(600);
@@ -23,8 +25,12 @@ export default function ShopPage() {
   const [inStockOnly, setInStockOnly] = useState(false);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
 
+  useEffect(() => {
+    setProductsList(getStoredProducts());
+  }, []);
+
   const filteredProducts = useMemo(() => {
-    return PRODUCTS.filter((product) => {
+    return productsList.filter((product) => {
       // Category filter
       if (selectedCategory !== "all" && product.category !== selectedCategory) return false;
 

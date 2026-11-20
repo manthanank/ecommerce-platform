@@ -1,7 +1,14 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { PRODUCTS, MOCK_ORDERS, SALES_METRICS, CATEGORY_DISTRIBUTION, Product, Order } from "@/lib/data";
+import {
+  getStoredOrders,
+  getStoredProducts,
+  updateStoredOrderStatus,
+  updateStoredProductStock,
+  addStoredProduct,
+} from "@/lib/store";
 import {
   BarChart,
   Bar,
@@ -35,6 +42,11 @@ export default function AdminPage() {
   const [newStockVal, setNewStockVal] = useState<number>(0);
   const [showAddModal, setShowAddModal] = useState(false);
 
+  useEffect(() => {
+    setOrdersList(getStoredOrders());
+    setProductsList(getStoredProducts());
+  }, []);
+
   // New product form
   const [newProd, setNewProd] = useState({
     name: "",
@@ -47,16 +59,14 @@ export default function AdminPage() {
   const lowStockProducts = productsList.filter((p) => p.inventory < 20);
 
   const handleUpdateStock = (id: string) => {
-    setProductsList((prev) =>
-      prev.map((p) => (p.id === id ? { ...p, inventory: newStockVal } : p))
-    );
+    const updated = updateStoredProductStock(id, newStockVal);
+    setProductsList(updated);
     setStockEditId(null);
   };
 
   const handleStatusChange = (orderId: string, nextStatus: Order["status"]) => {
-    setOrdersList((prev) =>
-      prev.map((o) => (o.id === orderId ? { ...o, status: nextStatus } : o))
-    );
+    const updated = updateStoredOrderStatus(orderId, nextStatus);
+    setOrdersList(updated);
   };
 
   const handleCreateProduct = (e: React.FormEvent) => {
@@ -70,14 +80,17 @@ export default function AdminPage() {
       inventory: Number(newProd.inventory),
       rating: 5.0,
       reviewsCount: 1,
-      description: newProd.description || "Precision engineered industrial hardware component.",
-      features: ["Custom aerospace alloy construction", "Modular replacement warranty"],
-      specs: { Standard: "ISO 9001", Origin: "Manufactured in EU" },
-      colors: [{ name: "Slate Black", hex: "#0f172a" }],
-      images: ["https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=800&q=80"],
+      description: newProd.description || "Precision engineered hardware peripheral.",
+      features: ["Precision CNC Aluminum", "Ultra-low latency", "2-Year Warranty"],
+      specs: { Material: "Aircraft Alloy", Connectivity: "USB-C / BT 5.3" },
+      colors: [{ name: "Space Gray", hex: "#4b5563" }],
+      images: [
+        "https://images.unsplash.com/photo-1545454675-3531b543be5d?w=800&q=80",
+      ],
+      isNew: true,
     };
-
-    setProductsList([created, ...productsList]);
+    const updated = addStoredProduct(created);
+    setProductsList(updated);
     setShowAddModal(false);
     setNewProd({ name: "", category: "audio", price: 199, inventory: 50, description: "" });
   };
@@ -400,7 +413,7 @@ export default function AdminPage() {
         {/* Order Fulfillment Status Switcher */}
         <div className="bg-slate-900/60 border border-slate-800 rounded-3xl p-6 sm:p-8">
           <h3 className="text-base font-semibold text-white mb-2">Order Fulfillment Dispatch Queue</h3>
-          <p className="text-xs text-slate-400 mb-6">Live state transitions simulate logistics webhook callbacks</p>
+          <p className="text-xs text-slate-400 mb-6">Live state transitions update logistics status across the customer portal</p>
 
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs">

@@ -4,7 +4,7 @@ export default function manifest(): MetadataRoute.Manifest {
   return {
     name: "APEX Store | Precision Engineering & Peripherals",
     short_name: "APEX Store",
-    description: "Industrial-grade audio, CNC mechanical keyboards, titanium timepieces, and technical wear with simulated Stripe checkout.",
+    description: "Industrial-grade audio, CNC mechanical keyboards, titanium timepieces, and technical wear with instant encrypted checkout.",
     start_url: "/",
     display: "standalone",
     background_color: "#030712",

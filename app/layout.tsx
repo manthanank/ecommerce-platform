@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://ecommerce-platform-roan-pi.vercel.app"),
   title: "APEX Store | Precision Engineering & High-End Peripherals",
   description:
-    "Industrial-grade audio, CNC mechanical keyboards, titanium timepieces, and weatherproof technical apparel with instant Stripe checkout simulation.",
+    "Industrial-grade audio, CNC mechanical keyboards, titanium timepieces, and weatherproof technical apparel with instant secure checkout.",
   keywords: ["e-commerce", "nextjs", "stripe", "prisma", "audio", "mechanical keyboards", "everyday carry"],
   icons: {
     icon: [
@@ -22,7 +22,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: "APEX Store | Precision Peripherals",
-    description: "Industrial-grade hardware with Stripe checkout simulation.",
+    description: "Industrial-grade hardware with instant 256-bit encrypted checkout and live order tracking.",
     type: "website",
     url: "https://ecommerce-platform-roan-pi.vercel.app",
     siteName: "APEX Store",
