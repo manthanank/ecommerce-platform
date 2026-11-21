@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { Order, MOCK_ORDERS } from "@/lib/data";
+import { prisma, isDatabaseConfigured } from "@/lib/prisma";
 
 function generateDynamicOrders(): Order[] {
   const now = new Date();

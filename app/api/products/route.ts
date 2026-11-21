@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { PRODUCTS, Product } from "@/lib/data";
+import { prisma, isDatabaseConfigured } from "@/lib/prisma";
 
 let serverProducts: Product[] = [...PRODUCTS];
 
@@ -9,7 +10,39 @@ export async function GET(request: Request) {
   const query = searchParams.get("q")?.toLowerCase();
   const sort = searchParams.get("sort");
 
-  let filtered = [...serverProducts];
+  let products = [...serverProducts];
+
+  if (isDatabaseConfigured()) {
+    try {
+      const dbProducts = await prisma.product.findMany({
+        include: { category: true },
+        orderBy: { createdAt: "desc" },
+      });
+      if (dbProducts && dbProducts.length > 0) {
+        products = dbProducts.map((p) => ({
+          id: p.id,
+          name: p.name,
+          slug: p.slug,
+          category: p.category.name,
+          price: p.price,
+          compareAtPrice: p.compareAtPrice || undefined,
+          rating: p.rating,
+          reviewsCount: p.reviewsCount,
+          inventory: p.inventory,
+          description: p.description,
+          features: p.tags.length > 0 ? p.tags : ["Precision engineering"],
+          specs: { Category: p.category.name },
+          colors: [{ name: "Obsidian", hex: "#0f172a" }],
+          images: p.images.length > 0 ? p.images : ["https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=800&q=80"],
+          isFeatured: p.isFeatured,
+        }));
+      }
+    } catch (e) {
+      console.warn("[Products API] Database query error, using in-memory:", (e as Error).message);
+    }
+  }
+
+  let filtered = [...products];
 
   if (category && category !== "all") {
     filtered = filtered.filter((p) => p.category.toLowerCase() === category.toLowerCase());
